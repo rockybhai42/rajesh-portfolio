@@ -1,0 +1,80 @@
+/* =========================
+   ABOUT SECTION
+========================= */
+
+.about {
+  min-height: 60vh;
+
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+
+  padding: 100px 80px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  animation: fadeIn 1s ease;
+
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* =========================
+   HEADING
+========================= */
+
+.about h1 {
+  font-size: 45px;
+  margin-bottom: 30px;
+
+  color: var(--accent);
+}
+
+/* =========================
+   PARAGRAPH
+========================= */
+
+.about p {
+  max-width: 900px;
+
+  font-size: 22px;
+  line-height: 1.8;
+
+  color: var(--text-secondary);
+}
+
+/* =========================
+   FADE ANIMATION
+========================= */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+  .about {
+    padding: 60px 20px;
+    text-align: center;
+  }
+
+  .about h1 {
+    font-size: 35px;
+  }
+
+  .about p {
+    font-size: 18px;
+    line-height: 1.7;
+  }
+}

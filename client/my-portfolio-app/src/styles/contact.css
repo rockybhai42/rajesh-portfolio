@@ -1,0 +1,175 @@
+/* =========================
+   CONTACT SECTION
+========================= */
+
+.contact {
+  min-height: 100vh;
+
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+
+  padding: 100px 80px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  animation: fadeUp 1s ease;
+
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* =========================
+   HEADING
+========================= */
+
+.contact h1 {
+  font-size: 45px;
+  margin-bottom: 50px;
+
+  color: var(--accent);
+
+  text-align: center;
+}
+
+/* =========================
+   CONTAINER
+========================= */
+
+.contact-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* =========================
+   FORM
+========================= */
+
+.contact-form {
+  width: 600px;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 25px;
+}
+
+/* =========================
+   INPUTS
+========================= */
+
+.contact-form input,
+.contact-form textarea {
+  padding: 18px;
+
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+
+  font-size: 18px;
+
+  outline: none;
+
+  transition: all 0.3s ease;
+}
+
+/* PLACEHOLDER */
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: var(--text-secondary);
+}
+
+/* FOCUS */
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: var(--accent);
+
+  box-shadow: 0 0 15px var(--shadow);
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+.contact-form button {
+  padding: 15px;
+
+  border: none;
+  border-radius: 10px;
+
+  background-color: var(--accent);
+  color: white;
+
+  font-size: 18px;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+}
+
+/* HOVER */
+.contact-form button:hover {
+  transform: translateY(-5px);
+  background-color: var(--accent-hover);
+  box-shadow: 0 0 20px var(--shadow);
+}
+
+/* DISABLED STATE */
+.contact-form button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* =========================
+   CHARACTER COUNT
+========================= */
+
+.char-count {
+  text-align: right;
+
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+/* =========================
+   ANIMATION
+========================= */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+  .contact {
+    padding: 60px 20px;
+  }
+
+  .contact h1 {
+    font-size: 35px;
+  }
+
+  .contact-form {
+    width: 100%;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 16px;
+  }
+}

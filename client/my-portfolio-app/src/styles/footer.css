@@ -1,0 +1,129 @@
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+
+  padding: 60px 20px;
+
+  text-align: center;
+
+  border-top: 1px solid var(--border-color);
+
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* =========================
+   TITLE
+========================= */
+
+.footer h2 {
+  font-size: 32px;
+  margin-bottom: 15px;
+
+  color: var(--accent);
+}
+
+/* =========================
+   DESCRIPTION
+========================= */
+
+.footer p {
+  margin-bottom: 20px;
+
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* =========================
+   LINKS CONTAINER
+========================= */
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 25px;
+  margin-bottom: 25px;
+}
+
+/* =========================
+   LINKS
+========================= */
+
+.footer-links a {
+  color: var(--text-primary);
+  text-decoration: none;
+
+  font-size: 18px;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  transition: all 0.3s ease;
+}
+
+/* HOVER */
+.footer-links a:hover {
+  color: var(--accent);
+  transform: translateY(-3px);
+}
+
+/* UNDERLINE ANIMATION */
+.footer-links a::after {
+  content: "";
+  position: absolute;
+
+  left: 50%;
+  bottom: -5px;
+  transform: translateX(-50%);
+
+  width: 0%;
+  height: 2px;
+
+  background-color: var(--accent);
+
+  transition: width 0.3s ease;
+}
+
+.footer-links a:hover::after {
+  width: 100%;
+}
+
+/* =========================
+   COPYRIGHT
+========================= */
+
+.copyright {
+  color: var(--text-secondary);
+  font-size: 15px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 50px 20px;
+  }
+
+  .footer h2 {
+    font-size: 28px;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .footer-links a {
+    font-size: 16px;
+  }
+}

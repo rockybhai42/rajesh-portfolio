@@ -1,0 +1,151 @@
+/* =========================
+   GLOBAL RESET
+========================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* =========================
+   HTML & BODY
+========================= */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* =========================
+   GLOBAL TRANSITIONS
+========================= */
+
+button,
+a,
+.project-card,
+.skill-card {
+  transition: all 0.3s ease;
+}
+
+/* =========================
+   THEME VARIABLES - DARK
+   (Applied when .dark is on <body> or root wrapper)
+========================= */
+
+.dark {
+  /* Backgrounds */
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-tertiary: #111827;
+
+  /* Text */
+  --text-primary: #ffffff;
+  --text-secondary: #cbd5e1;
+
+  /* Accent */
+  --accent: #38bdf8;
+  --accent-hover: #0ea5e9;
+
+  /* UI Elements */
+  --card-bg: #1e293b;
+  --border-color: #334155;
+
+  /* Shadows */
+  --shadow: rgba(0, 0, 0, 0.4);
+}
+
+/* =========================
+   THEME VARIABLES - LIGHT
+========================= */
+
+.light {
+  /* Backgrounds */
+  --bg-primary: #f8fafc;
+  --bg-secondary: #e2e8f0;
+  --bg-tertiary: #ffffff;
+
+  /* Text */
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+
+  /* Accent */
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+
+  /* UI Elements */
+  --card-bg: #ffffff;
+  --border-color: #e2e8f0;
+
+  /* Shadows */
+  --shadow: rgba(0, 0, 0, 0.1);
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Smooth theme transitions globally */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* Apply smooth transitions to ALL UI elements */
+button,
+a,
+.project-card,
+.skill-card,
+input,
+textarea,
+.navbar,
+.footer,
+.hero,
+.about,
+.skills,
+.projects,
+.contact {
+  transition: 
+    background-color 0.5s ease,
+    color 0.5s ease,
+    border-color 0.5s ease,
+    box-shadow 0.5s ease;
+}
+/* Theme change overlay animation */
+.theme-flash {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+
+  opacity: 0;
+  background: white;
+
+  animation: themeFlash 0.6s ease;
+}
+
+.dark .theme-flash {
+  background: black;
+}
+
+@keyframes themeFlash {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.08;
+  }
+  100% {
+    opacity: 0;
+  }
+}

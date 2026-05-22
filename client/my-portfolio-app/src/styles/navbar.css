@@ -1,0 +1,161 @@
+/* =========================
+   NAVBAR (THEME FIXED)
+========================= */
+
+.navbar {
+  width: 100%;
+  height: 80px;
+
+  /* FIX: theme-aware background */
+  background-color: var(--bg-primary);
+  backdrop-filter: blur(10px);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 80px;
+
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  border-bottom: 1px solid var(--border-color);
+
+  transition: all 0.3s ease;
+}
+
+/* =========================
+   LOGO
+========================= */
+
+.logo {
+  font-size: 30px;
+  font-weight: bold;
+  color: var(--accent);
+}
+
+/* =========================
+   NAV LINKS
+========================= */
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 30px;
+}
+
+.nav-links a {
+  position: relative;
+  text-decoration: none;
+
+  color: var(--text-primary);
+  font-size: 18px;
+
+  transition: color 0.3s ease;
+}
+
+/* HOVER */
+.nav-links a:hover {
+  color: var(--accent);
+}
+
+/* UNDERLINE EFFECT */
+.nav-links a::after {
+  content: "";
+  position: absolute;
+
+  left: 50%;
+  bottom: -5px;
+  transform: translateX(-50%);
+
+  width: 0%;
+  height: 2px;
+
+  background-color: var(--accent);
+
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* =========================
+   MOBILE ICON
+========================= */
+
+.menu-icon {
+  display: none;
+  font-size: 28px;
+
+  color: var(--text-primary);
+  cursor: pointer;
+
+  transition: transform 0.3s ease;
+}
+
+.menu-icon:hover {
+  transform: scale(1.1);
+}
+
+/* =========================
+   THEME TOGGLE BUTTON
+========================= */
+
+.theme-toggle {
+  background: transparent;
+  border: none;
+
+  color: var(--text-primary);
+  font-size: 22px;
+
+  cursor: pointer;
+
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.theme-toggle:hover {
+  transform: rotate(180deg);
+  color: var(--accent);
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+
+  .navbar {
+    padding: 0 20px;
+  }
+
+  .menu-icon {
+    display: block;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 80px;
+    left: -100%;
+
+    width: 100%;
+
+   background-color: var(--bg-primary);
+  border-top: 1px solid var(--border-color);
+
+    flex-direction: column;
+    align-items: center;
+
+    gap: 30px;
+    padding: 40px 0;
+
+    transition: 0.4s ease;
+  }
+
+  /* OPEN MENU */
+  .nav-links.active {
+    left: 0;
+  }
+}
+

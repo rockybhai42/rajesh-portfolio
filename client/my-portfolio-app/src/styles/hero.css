@@ -1,0 +1,244 @@
+/* =========================
+   HERO SECTION
+========================= */
+
+.hero {
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 80px;
+
+  color: var(--text-primary);
+
+  background: linear-gradient(
+    -45deg,
+    var(--bg-primary),
+    var(--bg-secondary),
+    var(--bg-primary),
+    var(--bg-secondary)
+  );
+
+  background-size: 400% 400%;
+
+  animation:
+    gradientMove 10s ease infinite,
+    fadeHero 1s ease;
+
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* =========================
+   BACKGROUND ANIMATION
+========================= */
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* =========================
+   HERO FADE IN
+========================= */
+
+@keyframes fadeHero {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   LEFT SECTION
+========================= */
+
+.hero-left {
+  width: 50%;
+  animation: slideLeft 1s ease;
+}
+
+@keyframes slideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* TEXT */
+
+.hero-left h1 {
+  font-size: 60px;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.hero-left span {
+  color: var(--accent);
+}
+
+.hero-left h2 {
+  font-size: 35px;
+  margin-bottom: 20px;
+  color: var(--text-secondary);
+}
+
+.hero-left p {
+  font-size: 20px;
+  line-height: 1.8;
+  margin-bottom: 35px;
+
+  max-width: 600px;
+
+  color: var(--text-secondary);
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* BASE BUTTON */
+.hero-btn {
+  padding: 14px 28px;
+  border-radius: 10px;
+
+  color: white;
+  text-decoration: none;
+
+  font-size: 18px;
+  font-weight: bold;
+
+  transition: all 0.3s ease;
+
+  background-color: var(--accent);
+}
+
+/* HOVER */
+.hero-btn:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 0 20px var(--shadow);
+  background-color: var(--accent-hover);
+}
+
+/* VIEW RESUME */
+.view-btn {
+  background-color: #f59e0b;
+}
+
+.view-btn:hover {
+  background-color: #d97706;
+}
+
+/* DOWNLOAD */
+.resume-btn {
+  background-color: #22c55e;
+}
+
+.resume-btn:hover {
+  background-color: #16a34a;
+}
+
+/* CONTACT */
+.contact-btn {
+  background-color: transparent;
+  border: 2px solid var(--accent);
+  color: var(--text-primary);
+}
+
+.contact-btn:hover {
+  background-color: var(--accent);
+  color: white;
+}
+
+/* =========================
+   RIGHT IMAGE
+========================= */
+
+.hero-right img {
+  width: 350px;
+  animation: floatImage 3s ease-in-out infinite;
+}
+
+@keyframes floatImage {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+
+    padding: 80px 20px;
+    gap: 50px;
+  }
+
+  .hero-left {
+    width: 100%;
+  }
+
+  .hero-left h1 {
+    font-size: 42px;
+  }
+
+  .hero-left h2 {
+    font-size: 26px;
+  }
+
+  .hero-left p {
+    font-size: 18px;
+    max-width: 100%;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+  }
+
+  .hero-buttons a {
+    width: 100%;
+  }
+
+  .hero-right img {
+    width: 230px;
+  }
+}

@@ -1,0 +1,129 @@
+/* =========================
+   SKILLS SECTION
+========================= */
+
+.skills {
+  min-height: 60vh;
+
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+
+  padding: 100px 80px;
+
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* =========================
+   TITLE
+========================= */
+
+.skills h1 {
+  font-size: 45px;
+  margin-bottom: 60px;
+
+  color: var(--accent);
+
+  text-align: center;
+}
+
+/* =========================
+   SKILLS CONTAINER
+========================= */
+
+.skills-container {
+  display: flex;
+  flex-wrap: wrap;
+
+  justify-content: center;
+  align-items: center;
+
+  gap: 25px;
+
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* =========================
+   SKILL CARD
+========================= */
+
+.skill-card {
+  width: 140px;
+  height: 140px;
+
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+
+  border-radius: 12px;
+
+  padding: 20px 15px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  cursor: default;
+
+  transition: all 0.3s ease;
+}
+
+/* =========================
+   ICON
+========================= */
+
+.skill-icon {
+  font-size: 35px;
+  color: var(--accent);
+}
+
+/* =========================
+   TEXT
+========================= */
+
+.skill-card p {
+  font-size: 16px;
+  color: var(--text-secondary);
+}
+
+/* =========================
+   HOVER EFFECT
+========================= */
+
+.skill-card:hover {
+  transform: translateY(-6px);
+
+  border-color: var(--accent);
+  box-shadow: 0 10px 25px var(--shadow);
+
+  background-color: var(--bg-secondary);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+  .skills {
+    padding: 60px 20px;
+  }
+
+  .skills h1 {
+    font-size: 35px;
+  }
+
+  .skill-card {
+    width: 120px;
+    padding: 18px 12px;
+  }
+
+  .skill-icon {
+    font-size: 30px;
+  }
+
+  .skill-card p {
+    font-size: 14px;
+  }
+}
