@@ -1,4 +1,5 @@
 import "../styles/hero.css";
+import profileImage from "../assets/my_image.png";
 
 function Hero() {
   return (
@@ -40,7 +41,7 @@ function Hero() {
         </div>
       <div className="hero-right">
         <img
-          src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+          src={profileImage}
           alt="Profile"
         />
       </div>

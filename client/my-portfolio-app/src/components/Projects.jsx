@@ -14,7 +14,7 @@ function Projects (){
 
       tech: "React.js | Node.js | Express.js | MariaDB",
 
-      github: "https://github.com/",
+      github: "https://github.com/rockybhai42/Projects-for-CN",
 
       live: "https://your-live-demo.com"
     },
@@ -29,7 +29,7 @@ function Projects (){
 
       tech: "React.js | CSS | React Icons",
 
-      github: "https://github.com/",
+      github: "https://github.com/rockybhai42/rajesh-portfolio/tree/master/server",
 
       live: "https://your-live-demo.com"
     }

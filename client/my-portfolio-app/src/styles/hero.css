@@ -179,10 +179,24 @@
 /* =========================
    RIGHT IMAGE
 ========================= */
-
 .hero-right img {
-  width: 350px;
-  animation: floatImage 3s ease-in-out infinite;
+  width: 400px;
+  height: 400px;
+
+  object-fit: contain;
+
+  border-radius: 50%;
+
+  border: 6px solid var(--accent);
+
+  background: white;
+}
+.hero-right img:hover {
+  transform: scale(1.05);
+
+  box-shadow:
+    0 0 30px var(--accent),
+    0 0 60px var(--accent);
 }
 
 @keyframes floatImage {
@@ -239,6 +253,7 @@
   }
 
   .hero-right img {
-    width: 230px;
-  }
+  width: 230px;
+  height: 230px;
+}
 }
