@@ -15,11 +15,12 @@ app.use(express.json());
 
 //database connection 
 const pool = mariadb.createPool({
-    host: "localhost",
-    user:"root",
-    password: "kanagu2001",
-    database : "portfolio_db",
-    connectionLimit : 5
+     host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT,
+  connectionLimit: 5
 });
 
 
@@ -49,7 +50,7 @@ app.get("/test-db",async (req, res)=>{
 
 //server
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT ;
 app.listen(port,()=>{
     console.log(`server running on port ${port}`);
 });
