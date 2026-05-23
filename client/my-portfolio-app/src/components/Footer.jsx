@@ -11,12 +11,12 @@ function Footer (){
             <h2>Rajesh Kumar Portfolio</h2>
             <p>full stack web developer</p>
             <div className="footer-links">
-         <a href="https://github.com/" target="_blank">
+         <a href="https://github.com/rockybhai42/" target="_blank">
              <FaGithub />
           GitHub
         </a>
 
-        <a href="https://linkedin.com/" target="_blank">
+        <a href="https://github.com/rockybhai42/" target="_blank">
         
             <FaLinkedin />
           LinkedIn
