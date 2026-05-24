@@ -35,7 +35,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-
+app.use(
+  cors({
+    origin: "https://rajesh-portfolio-ecru-six.vercel.app"
+  })
+);
 
 
 //test route 
