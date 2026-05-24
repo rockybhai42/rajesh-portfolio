@@ -11,7 +11,6 @@ const { Pool } = pg;
 dotenv.config();
 
 
-console.log("DATABASE_URL:", process.env.DATABASE_URL);
 
 //database connection 
 const pool = new Pool({
