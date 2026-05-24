@@ -39,7 +39,7 @@ function Contact (){
             message
         }
         try{
-            const response = await fetch(`http://localhost:5000/contacts`,{
+            const response = await fetch(`https://portfolio-backend-uadl.onrender.com/contacts`,{
                 method: "POST",
                 headers:{
                     "Content-Type": "application/json"
