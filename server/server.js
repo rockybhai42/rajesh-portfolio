@@ -1,9 +1,32 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import * as mariadb from "mariadb";
+import pg from "pg";
+const { Pool } = pg;
+
+
+
+
 //configure env variables
 dotenv.config();
+
+
+console.log("DATABASE_URL:", process.env.DATABASE_URL);
+
+//database connection 
+const pool = new Pool({
+  connectionString:process.env.DATABASE_URL,
+  ssl:{
+    rejectUnauthorized:false
+  }
+})
+
+
+
+
+
+
+
 
 // appi initialize
 
@@ -13,15 +36,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-//database connection 
-const pool = mariadb.createPool({
-     host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  port: process.env.DB_PORT,
-  connectionLimit: 5
-});
+
 
 
 //test route 
@@ -29,42 +44,66 @@ app.get("/",(req, res)=>{
     res.send("server running successfully");
 });
 
-//database test
-app.get("/test-db",async (req, res)=>{
-    let connect;
-  try{  
-     connect = await pool.getConnection();
-    const rows = await connect.query("select * from contacts");
-   
-    res.json(rows);
-}catch(err){
-    console.log(err);
-    res.status(500).json({err:"database connection error"})
-}finally{
-    if(connect){
-        connect.release();
-    } 
-}
+app.get("/test-db", async (req, res) => {
+  try {
+    const result = await pool.query(
+      "SELECT * FROM contacts ORDER BY id DESC"
+    );
 
-})
+    res.json(result.rows);
+
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Database connection failed"
+    });
+  }
+});
 
 //server
 
-const port = process.env.PORT ;
+const port = process.env.PORT||5000; ;
+
+
+app.post("/contacts", async (req, res) => {
+  try {
+    const { name, email, message } = req.body;
+
+    await pool.query(
+      `
+      INSERT INTO contacts(name, email, message)
+      VALUES($1, $2, $3)
+      `,
+      [name, email, message]
+    );
+
+    res.json({
+      success: true,
+      message: "Message sent successfully"
+    });
+
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Failed to save message"
+    });
+  }
+});
+
+
+
+app.get("/health", (req, res) => {
+  res.json({
+    status: "ok",
+    message: "backend is running "
+  });
+});
+
+
 app.listen(port,()=>{
     console.log(`server running on port ${port}`);
 });
-
-app.post("/contacts", async (req, res)=>{
-    const {name, email, message} = req.body;
-    try {
-        const connect = await pool.getConnection();
-        await connect.query(`insert into contacts(name, email, message) values(?,?,?)`, [name, email, message]);
-
-        res.json({ success: true, message: "Contact added successfully" });
-        connect.release();
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ success: false, message: "Failed to add contact" });  
-    }
-})
