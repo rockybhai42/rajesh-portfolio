@@ -16,15 +16,7 @@ function App (){
 
   return(
     <>
-    <div className={theme}>
-        <Navbar theme = {theme} setTheme = {setTheme} />
-        <Hero />
-        <About />
-        <Skills /> 
-        <Projects /> 
-        <Contact /> 
-        <Footer />
-    </div>
+     return <Admin />;
     </>
   )
 }
