@@ -1,70 +1,98 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function Admin() {
+  const [password, setPassword] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [contacts, setContacts] = useState([]);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const adminPassword = localStorage.getItem("adminPassword");
+  async function handleLogin(e) {
+    e.preventDefault();
 
-    if (!adminPassword) {
-      alert("Please login first");
-      window.location.href = "/admin-login";
-      return;
-    }
-
-    fetch(
-      "https://portfolio-backend-uadl.onrender.com/contacts",
-      {
-        headers: {
-          "admin-password": adminPassword
+    try {
+      const response = await fetch(
+        "https://portfolio-backend-uadl.onrender.com/admin-login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            password
+          })
         }
+      );
+
+      const data = await response.json();
+
+      if (data.success) {
+        setIsLoggedIn(true);
+
+        fetchContacts();
+      } else {
+        alert("Invalid Password");
       }
-    )
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Unauthorized");
-        }
 
-        return res.json();
-      })
-      .then((data) => {
-        setContacts(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-
-        localStorage.removeItem("adminPassword");
-
-        alert("Session expired");
-
-        window.location.href = "/admin-login";
-      });
-
-  }, []);
-
-  function handleLogout() {
-    localStorage.removeItem("adminPassword");
-    window.location.href = "/admin-login";
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  if (loading) {
-    return <h2>Loading...</h2>;
+  async function fetchContacts() {
+    try {
+      const response = await fetch(
+        "https://portfolio-backend-uadl.onrender.com/contacts",
+        {
+          headers: {
+            "admin-password": password
+          }
+        }
+      );
+
+      const data = await response.json();
+
+      setContacts(data);
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  function handleLogout() {
+    setIsLoggedIn(false);
+    setPassword("");
+    setContacts([]);
+  }
+
+  if (!isLoggedIn) {
+    return (
+      <div>
+        <h1>Admin Login</h1>
+
+        <form onSubmit={handleLogin}>
+          <input
+            type="password"
+            placeholder="Enter Admin Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+
+          <button type="submit">
+            Login
+          </button>
+        </form>
+      </div>
+    );
   }
 
   return (
-    <div style={{ padding: "30px" }}>
+    <div>
       <h1>Contact Messages</h1>
 
       <button onClick={handleLogout}>
         Logout
       </button>
 
-      <br />
-      <br />
-
-      <table border="1" cellPadding="10">
+      <table border="1">
         <thead>
           <tr>
             <th>Name</th>
