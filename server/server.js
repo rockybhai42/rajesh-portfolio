@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import pg from "pg";
-import nodemailer from "nodemailer";
+
 
 dotenv.config();
 
@@ -25,21 +25,21 @@ const pool = new Pool({
    EMAIL SERVICE
 ========================= */
 
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  }
-});
+// const transporter = nodemailer.createTransport({
+//   service: "gmail",
+//   auth: {
+//     user: process.env.EMAIL_USER,
+//     pass: process.env.EMAIL_PASS
+//   }
+// });
 
-transporter.verify((error) => {
-  if (error) {
-    console.log("Email Error:", error);
-  } else {
-    console.log("Email Service Ready");
-  }
-});
+// transporter.verify((error) => {
+//   if (error) {
+//     console.log("Email Error:", error);
+//   } else {
+//     console.log("Email Service Ready");
+//   }
+// });
 
 /* =========================
    MIDDLEWARES
@@ -119,22 +119,22 @@ app.post("/contacts", async (req, res) => {
       [name, email, message]
     );
 
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: process.env.EMAIL_USER,
-      subject: "New Portfolio Contact",
-      html: `
-        <h2>New Portfolio Contact</h2>
+    // await transporter.sendMail({
+    //   from: process.env.EMAIL_USER,
+    //   to: process.env.EMAIL_USER,
+    //   subject: "New Portfolio Contact",
+    //   html: `
+    //     <h2>New Portfolio Contact</h2>
 
-        <p><strong>Name:</strong> ${name}</p>
+    //     <p><strong>Name:</strong> ${name}</p>
 
-        <p><strong>Email:</strong> ${email}</p>
+    //     <p><strong>Email:</strong> ${email}</p>
 
-        <p><strong>Message:</strong></p>
+    //     <p><strong>Message:</strong></p>
 
-        <p>${message}</p>
-      `
-    });
+    //     <p>${message}</p>
+    //   `
+    // });
 
     res.json({
       success: true,
