@@ -38,29 +38,40 @@ function Contact (){
             email,
             message
         }
-        try{
-            const response = await fetch(`https://portfolio-backend-uadl.onrender.com/contacts`,{
-                method: "POST",
-                headers:{
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(contactData)
-                
-            })
+       try {
+  const response = await fetch(
+    "https://portfolio-backend-uadl.onrender.com/contacts",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(contactData)
+    }
+  );
 
-            const data = await response.json();
-            if(data.success){
-              toast.success("Message Sent Successfully");
-                setName("");
-                setEmail("");
-                setMessage("");
-             }
+  console.log("Status:", response.status);
 
-        }catch(err){
-           toast.error("Something went wrong");
-        }finally{
-            setLoading(false);
-        }
+  const data = await response.json();
+
+  console.log("Response:", data);
+
+  if (data.success) {
+    toast.success("Message Sent Successfully");
+
+    setName("");
+    setEmail("");
+    setMessage("");
+  } else {
+    toast.error(data.message);
+  }
+
+} catch (err) {
+  console.log("Fetch Error:", err);
+  toast.error("Something went wrong");
+} finally {
+  setLoading(false);
+}
 
     }
 
@@ -73,10 +84,19 @@ function Contact (){
                 <form className="contact-form" onSubmit={handleSubmit}>
                     <input  type="text" placeholder="Your name" maxLength="50" value={name} onChange={(e)=>setName(e.target.value) }  required />
                     <input type="email" placeholder="Your email" maxLength="100" value={email} onChange={(e)=> setEmail(e.target.value)}  required />
-                    <textarea placeholder="Your message" rows="6" maxLength="500" value={message} onChange={(e)=> setMessage(e.target.value)} required >
-                     <p className="char-count">
-                        {message.length}/500</p>   
-                    </textarea>
+                    <textarea
+                    placeholder="Your message"
+                    rows="6"
+                    maxLength="500"
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    required
+                    />
+
+                        <p className="char-count">
+                        {message.length}/500
+                        </p>   
+                   
                     <button type="submit" disabled ={loading}>{
                         loading ? " ⏳sending...": "send message"
                         }</button>
