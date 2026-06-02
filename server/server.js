@@ -16,9 +16,9 @@ const app = express();
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  }
+  // ssl: {
+  //   rejectUnauthorized: false
+  // }
 });
 
 /* =========================
@@ -79,9 +79,7 @@ app.get("/health", (req, res) => {
 app.post("/admin-login", (req, res) => {
   const { password } = req.body;
 
-  console.log("Entered password:", password);
-  console.log("ADMIN_PASSWORD exists:", !!process.env.ADMIN_PASSWORD);
-  console.log("ADMIN_PASSWORD value:", process.env.ADMIN_PASSWORD);
+
 
   if (password === process.env.ADMIN_PASSWORD) {
     return res.json({
