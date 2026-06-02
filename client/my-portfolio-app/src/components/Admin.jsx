@@ -2,7 +2,10 @@ import { useState } from "react";
 
 function Admin() {
   const [password, setPassword] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+const [isLoggedIn, setIsLoggedIn] =
+  useState(
+    localStorage.getItem("adminLoggedIn") === "true"
+  );
   const [contacts, setContacts] = useState([]);
 
   async function handleLogin(e) {
@@ -23,12 +26,16 @@ function Admin() {
       );
 
       const data = await response.json();
+        if (data.success) {
+          localStorage.setItem(
+            "adminLoggedIn",
+            "true"
+          );
 
-      if (data.success) {
-        setIsLoggedIn(true);
+          setIsLoggedIn(true);
 
-        fetchContacts();
-      } else {
+          fetchContacts();
+        } else {
         alert("Invalid Password");
       }
 
@@ -57,11 +64,15 @@ function Admin() {
     }
   }
 
-  function handleLogout() {
-    setIsLoggedIn(false);
-    setPassword("");
-    setContacts([]);
-  }
+    function handleLogout() {
+      localStorage.removeItem(
+        "adminLoggedIn"
+      );
+
+      setIsLoggedIn(false);
+      setPassword("");
+      setContacts([]);
+    }
 
   if (!isLoggedIn) {
     return (

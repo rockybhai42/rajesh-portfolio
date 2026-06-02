@@ -1,4 +1,5 @@
 import "../styles/footer.css"
+import { Link } from "react-router-dom";
 import {
   FaGithub,
   FaLinkedin,
@@ -33,6 +34,10 @@ function Footer (){
 
                 &copy; © 2026 Rajesh. All rights reserved.
             </p>
+          <Link to="/admin" className="admin-link">
+            Admin
+          </Link>
+
          </footer>
     )
 }
