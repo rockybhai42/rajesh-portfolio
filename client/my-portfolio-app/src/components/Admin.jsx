@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../styles/admin.css";
 
 function Admin() {
   const [password, setPassword] = useState("");
@@ -74,36 +75,53 @@ const [isLoggedIn, setIsLoggedIn] =
       setContacts([]);
     }
 
-  if (!isLoggedIn) {
-    return (
-      <div>
+ if (!isLoggedIn) {
+  return (
+    <div className="login-container">
+      <form
+        className="login-card"
+        onSubmit={handleLogin}
+      >
         <h1>Admin Login</h1>
 
-        <form onSubmit={handleLogin}>
-          <input
-            type="password"
-            placeholder="Enter Admin Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+        <input
+          type="password"
+          placeholder="Enter Admin Password"
+          value={password}
+          onChange={(e) =>
+            setPassword(e.target.value)
+          }
+        />
 
-          <button type="submit">
-            Login
-          </button>
-        </form>
-      </div>
-    );
-  }
+        <button type="submit">
+          Login
+        </button>
+      </form>
+    </div>
+  );
+}
 
-  return (
-    <div>
+ return (
+  <div className="admin-container">
+
+    <div className="admin-header">
       <h1>Contact Messages</h1>
 
-      <button onClick={handleLogout}>
+      <button
+        className="logout-btn"
+        onClick={handleLogout}
+      >
         Logout
       </button>
+    </div>
 
-      <table border="1">
+    <div className="stats-card">
+      <h3>Total Messages</h3>
+      <p>{contacts.length}</p>
+    </div>
+
+    <div className="table-wrapper">
+      <table className="contacts-table">
         <thead>
           <tr>
             <th>Name</th>
@@ -123,7 +141,9 @@ const [isLoggedIn, setIsLoggedIn] =
         </tbody>
       </table>
     </div>
-  );
+
+  </div>
+);
 }
 
 export default Admin;

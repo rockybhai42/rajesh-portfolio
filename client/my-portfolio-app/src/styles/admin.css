@@ -1,0 +1,149 @@
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: #0f172a;
+}
+
+.login-card {
+  width: 400px;
+
+  background: #1e293b;
+
+  padding: 40px;
+
+  border-radius: 16px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+}
+
+.login-card h1 {
+  text-align: center;
+  color: white;
+}
+
+.login-card input {
+  padding: 14px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #334155;
+  color: white;
+}
+
+.login-card button {
+  padding: 14px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #2563eb;
+  color: white;
+
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.login-card button:hover {
+  background: #1d4ed8;
+}
+
+.admin-container {
+  min-height: 100vh;
+
+  background: #0f172a;
+
+  color: white;
+
+  padding: 40px;
+}
+
+.admin-header {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 25px;
+}
+
+.logout-btn {
+  padding: 12px 20px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: #ef4444;
+
+  color: white;
+
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background: #dc2626;
+}
+
+.stats-card {
+  width: 250px;
+
+  background: #1e293b;
+
+  padding: 20px;
+
+  border-radius: 12px;
+
+  margin-bottom: 25px;
+}
+
+.stats-card h3 {
+  margin-bottom: 10px;
+}
+
+.stats-card p {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.contacts-table {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  background: #1e293b;
+
+  border-radius: 12px;
+
+  overflow: hidden;
+}
+
+.contacts-table thead {
+  background: #2563eb;
+}
+
+.contacts-table th,
+.contacts-table td {
+  padding: 16px;
+  text-align: left;
+}
+
+.contacts-table tbody tr {
+  border-bottom: 1px solid #334155;
+}
+
+.contacts-table tbody tr:hover {
+  background: #334155;
+}
