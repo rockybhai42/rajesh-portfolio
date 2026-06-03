@@ -248,7 +248,7 @@ function Admin() {
 
                   <td className="message-cell">{contact.message}</td>
 
-                  <td>{new Date(contact.created_at).toLocaleString()}</td>
+                  <td>{new Date(contact.create_at).toLocaleString()}</td>
 
                   <td>
                     <button
