@@ -124,7 +124,7 @@ app.post("/contacts", async (req, res) => {
 
     try {
       await resend.emails.send({
-        from: "onboarding@resend.dev",
+       from: "onboarding@resend.dev",
         to: process.env.EMAIL_USER,
         subject: "New Portfolio Contact",
         html: `
@@ -183,6 +183,65 @@ app.get("/contacts", async (req, res) => {
       message: "Database Error"
     });
   }
+});
+
+
+
+
+//delete contact route can be added here in future if needed
+
+app.delete("/contacts/:id", async (req, res) => {
+
+
+  const password = req.headers["admin-password"];
+  if (password !== process.env.ADMIN_PASSWORD) {
+    return res.status(401).json({
+      success: false,
+      message: "unauthorized"
+    })
+  }
+
+  const id = parseInt(req.params.id);
+
+  if (isNaN(id)) {
+    return res.status(400).json({
+      success: false,
+      message: "Invalid contact id"
+    });
+  }
+
+  try {
+    const result = await pool.query(
+      `
+  DELETE FROM contacts
+  WHERE id = $1
+  RETURNING id
+  `,
+      [id]
+    );
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "Contact not found"
+      });
+    }
+
+    res.json({
+      success: true,
+      message: "Contact deleted successfully"
+    });
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to delete contact"
+    });
+  }
+
+
+
 });
 
 /* =========================
