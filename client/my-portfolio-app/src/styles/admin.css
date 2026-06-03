@@ -1,6 +1,12 @@
 /* =========================
    LOGIN PAGE
 ========================= */
+body,
+#root {
+  margin: 0;
+  min-height: 100vh;
+  background: #0f172a;
+}
 
 .login-container {
   min-height: 100vh;
@@ -75,16 +81,10 @@
 
 .admin-container {
   min-height: 100vh;
-
-  background: #0f172a;
-
-  color: white;
-
+  width: 100%;
   padding: 40px;
-
-  max-width: 1400px;
-
-  margin: auto;
+  background: #0f172a;
+  color: white;
 }
 
 .admin-header {
