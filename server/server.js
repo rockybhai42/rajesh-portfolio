@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import pg from "pg";
+import { Resend } from "resend";
 
 
 dotenv.config();
@@ -10,15 +11,19 @@ const { Pool } = pg;
 
 const app = express();
 
+// resend client
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
 /* =========================
    DATABASE
 ========================= */
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-   ssl: {
-     rejectUnauthorized: false
-   }
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
 
 /* =========================
@@ -117,23 +122,21 @@ app.post("/contacts", async (req, res) => {
       [name, email, message]
     );
 
-    // await transporter.sendMail({
-    //   from: process.env.EMAIL_USER,
-    //   to: process.env.EMAIL_USER,
-    //   subject: "New Portfolio Contact",
-    //   html: `
-    //     <h2>New Portfolio Contact</h2>
-
-    //     <p><strong>Name:</strong> ${name}</p>
-
-    //     <p><strong>Email:</strong> ${email}</p>
-
-    //     <p><strong>Message:</strong></p>
-
-    //     <p>${message}</p>
-    //   `
-    // });
-
+    try {
+      await resend.emails.send({
+        from: "onboarding@resend.dev",
+        to: process.env.EMAIL_USER,
+        subject: "New Portfolio Contact",
+        html: `
+      <h2>New Portfolio Contact</h2>
+      <p><strong>Name:</strong> ${name}</p>
+      <p><strong>Email:</strong> ${email}</p>
+      <p>${message}</p>
+    `
+      });
+    } catch (emailError) {
+      console.log("Email Error:", emailError);
+    }
     res.json({
       success: true,
       message: "Message Sent Successfully"
