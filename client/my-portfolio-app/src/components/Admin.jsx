@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import "../styles/admin.css";
+import { API_BASE_URL } from "../config/api";
 
 function Admin() {
   const [password, setPassword] = useState("");
 
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    localStorage.getItem("adminLoggedIn") === "true",
-  );
+  const [token, setToken] = useState(() => localStorage.getItem("adminToken"));
+  const [isLoggedIn, setIsLoggedIn] = useState(!!token);
 
   const [contacts, setContacts] = useState([]);
   const [search, setSearch] = useState("");
@@ -17,11 +17,8 @@ function Admin() {
   ========================= */
 
   useEffect(() => {
-    const savedPassword = localStorage.getItem("adminPassword");
-
-    if (isLoggedIn && savedPassword) {
-      setPassword(savedPassword);
-      fetchContacts(savedPassword);
+    if (token) {
+      fetchContacts(token);
     }
   }, []);
 
@@ -33,31 +30,28 @@ function Admin() {
     e.preventDefault();
 
     try {
-      const response = await fetch(
-        "https://portfolio-backend-uadl.onrender.com/admin-login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            password,
-          }),
+      const response = await fetch(`${API_BASE_URL}/admin-login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify({
+          password,
+        }),
+      });
 
       const data = await response.json();
 
       if (data.success) {
-        localStorage.setItem("adminLoggedIn", "true");
+        localStorage.setItem("adminToken", data.token);
 
-        localStorage.setItem("adminPassword", password);
-
+        setToken(data.token);
         setIsLoggedIn(true);
+        setPassword("");
 
-        fetchContacts(password);
+        fetchContacts(data.token);
       } else {
-        alert("Invalid Password");
+        alert(data.message || "Invalid Password");
       }
     } catch (error) {
       console.log(error);
@@ -68,18 +62,20 @@ function Admin() {
      FETCH CONTACTS
   ========================= */
 
-  async function fetchContacts(adminPassword = password) {
+  async function fetchContacts(authToken = token) {
     try {
       setLoading(true);
 
-      const response = await fetch(
-        "https://portfolio-backend-uadl.onrender.com/contacts",
-        {
-          headers: {
-            "admin-password": adminPassword,
-          },
+      const response = await fetch(`${API_BASE_URL}/contacts`, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
         },
-      );
+      });
+
+      if (response.status === 401) {
+        handleLogout();
+        return;
+      }
 
       const data = await response.json();
 
@@ -105,15 +101,17 @@ function Admin() {
     if (!confirmDelete) return;
 
     try {
-      const response = await fetch(
-        `https://portfolio-backend-uadl.onrender.com/contacts/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            "admin-password": password,
-          },
+      const response = await fetch(`${API_BASE_URL}/contacts/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      );
+      });
+
+      if (response.status === 401) {
+        handleLogout();
+        return;
+      }
 
       const data = await response.json();
 
@@ -132,10 +130,9 @@ function Admin() {
   ========================= */
 
   function handleLogout() {
-    localStorage.removeItem("adminLoggedIn");
+    localStorage.removeItem("adminToken");
 
-    localStorage.removeItem("adminPassword");
-
+    setToken(null);
     setIsLoggedIn(false);
     setPassword("");
     setContacts([]);

@@ -1,6 +1,7 @@
 import "../styles/contact.css"
 import {useState} from "react"
 import { toast } from "react-toastify";
+import { API_BASE_URL } from "../config/api";
 
 function Contact (){
     const [name, setName] = useState("");
@@ -40,7 +41,7 @@ function Contact (){
         }
        try {
   const response = await fetch(
-    "https://portfolio-backend-uadl.onrender.com/contacts",
+    `${API_BASE_URL}/contacts`,
     {
       method: "POST",
       headers: {

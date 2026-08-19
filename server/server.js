@@ -3,6 +3,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import pg from "pg";
 import { Resend } from "resend";
+import jwt from "jsonwebtoken";
+import rateLimit from "express-rate-limit";
 
 
 dotenv.config();
@@ -10,6 +12,8 @@ dotenv.config();
 const { Pool } = pg;
 
 const app = express();
+
+app.set("trust proxy", 1);
 
 // resend client
 
@@ -59,6 +63,43 @@ app.use(
 app.use(express.json());
 
 /* =========================
+   ADMIN AUTH
+========================= */
+
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 10,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    success: false,
+    message: "Too many login attempts. Try again later."
+  }
+});
+
+function requireAdminAuth(req, res, next) {
+  const authHeader = req.headers["authorization"] || "";
+  const token = authHeader.startsWith("Bearer ") ? authHeader.slice(7) : null;
+
+  if (!token) {
+    return res.status(401).json({
+      success: false,
+      message: "Unauthorized"
+    });
+  }
+
+  try {
+    jwt.verify(token, process.env.JWT_SECRET);
+    next();
+  } catch (error) {
+    return res.status(401).json({
+      success: false,
+      message: "Session expired, please log in again"
+    });
+  }
+}
+
+/* =========================
    HOME ROUTE
 ========================= */
 
@@ -81,15 +122,18 @@ app.get("/health", (req, res) => {
    ADMIN LOGIN
 ========================= */
 
-app.post("/admin-login", (req, res) => {
+app.post("/admin-login", loginLimiter, (req, res) => {
   const { password } = req.body;
 
-
-
   if (password === process.env.ADMIN_PASSWORD) {
+    const token = jwt.sign({ role: "admin" }, process.env.JWT_SECRET, {
+      expiresIn: "24h"
+    });
+
     return res.json({
       success: true,
-      message: "Login Successful"
+      message: "Login Successful",
+      token
     });
   }
 
@@ -156,16 +200,7 @@ app.post("/contacts", async (req, res) => {
    GET ALL CONTACTS
 ========================= */
 
-app.get("/contacts", async (req, res) => {
-  const password = req.headers["admin-password"];
-
-  if (password !== process.env.ADMIN_PASSWORD) {
-    return res.status(401).json({
-      success: false,
-      message: "Unauthorized"
-    });
-  }
-
+app.get("/contacts", requireAdminAuth, async (req, res) => {
   try {
     const result = await pool.query(`
       SELECT *
@@ -190,16 +225,7 @@ app.get("/contacts", async (req, res) => {
 
 //delete contact route can be added here in future if needed
 
-app.delete("/contacts/:id", async (req, res) => {
-
-
-  const password = req.headers["admin-password"];
-  if (password !== process.env.ADMIN_PASSWORD) {
-    return res.status(401).json({
-      success: false,
-      message: "unauthorized"
-    })
-  }
+app.delete("/contacts/:id", requireAdminAuth, async (req, res) => {
 
   const id = parseInt(req.params.id);
 
