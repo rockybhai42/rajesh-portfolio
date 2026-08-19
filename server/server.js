@@ -54,9 +54,23 @@ const pool = new Pool({
    MIDDLEWARES
 ========================= */
 
+const allowedOriginPatterns = [
+  /^https:\/\/rajesh-portfolio-ecru-six\.vercel\.app$/,
+  /^https:\/\/rajesh-portfolio-[a-z0-9]+-rockybhai42s-projects\.vercel\.app$/
+];
+
 app.use(
   cors({
-    origin: "https://rajesh-portfolio-ecru-six.vercel.app"
+    origin: (origin, callback) => {
+      // no origin = same-origin/non-browser request (curl, health checks, etc.)
+      if (!origin) return callback(null, true);
+
+      const isAllowed = allowedOriginPatterns.some((pattern) =>
+        pattern.test(origin)
+      );
+
+      callback(null, isAllowed);
+    }
   })
 );
 
