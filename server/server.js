@@ -91,6 +91,54 @@ const loginLimiter = rateLimit({
   }
 });
 
+const contactLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 5,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    success: false,
+    message: "Too many messages sent. Please try again later."
+  }
+});
+
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function escapeHtml(str) {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function validateContactPayload({ name, email, message }) {
+  if (
+    typeof name !== "string" ||
+    typeof email !== "string" ||
+    typeof message !== "string"
+  ) {
+    return "All fields are required";
+  }
+
+  const trimmedName = name.trim();
+  const trimmedEmail = email.trim();
+  const trimmedMessage = message.trim();
+
+  if (trimmedName.length < 3 || trimmedName.length > 50) {
+    return "Name must be between 3 and 50 characters";
+  }
+
+  if (!EMAIL_REGEX.test(trimmedEmail) || trimmedEmail.length > 100) {
+    return "Please enter a valid email address";
+  }
+
+  if (trimmedMessage.length < 10 || trimmedMessage.length > 500) {
+    return "Message must be between 10 and 500 characters";
+  }
+
+  return null;
+}
+
 function requireAdminAuth(req, res, next) {
   const authHeader = req.headers["authorization"] || "";
   const token = authHeader.startsWith("Bearer ") ? authHeader.slice(7) : null;
@@ -161,23 +209,29 @@ app.post("/admin-login", loginLimiter, (req, res) => {
    CONTACT FORM
 ========================= */
 
-app.post("/contacts", async (req, res) => {
+app.post("/contacts", contactLimiter, async (req, res) => {
   try {
     const { name, email, message } = req.body;
 
-    if (!name || !email || !message) {
+    const validationError = validateContactPayload({ name, email, message });
+
+    if (validationError) {
       return res.status(400).json({
         success: false,
-        message: "All fields are required"
+        message: validationError
       });
     }
+
+    const trimmedName = name.trim();
+    const trimmedEmail = email.trim();
+    const trimmedMessage = message.trim();
 
     await pool.query(
       `
       INSERT INTO contacts(name, email, message)
       VALUES($1, $2, $3)
       `,
-      [name, email, message]
+      [trimmedName, trimmedEmail, trimmedMessage]
     );
 
     try {
@@ -187,9 +241,9 @@ app.post("/contacts", async (req, res) => {
         subject: "New Portfolio Contact",
         html: `
       <h2>New Portfolio Contact</h2>
-      <p><strong>Name:</strong> ${name}</p>
-      <p><strong>Email:</strong> ${email}</p>
-      <p>${message}</p>
+      <p><strong>Name:</strong> ${escapeHtml(trimmedName)}</p>
+      <p><strong>Email:</strong> ${escapeHtml(trimmedEmail)}</p>
+      <p>${escapeHtml(trimmedMessage)}</p>
     `
       });
     } catch (emailError) {
