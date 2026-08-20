@@ -1,49 +1,75 @@
+import { Suspense, lazy, useEffect, useState } from "react";
 import "../styles/hero.css";
+import { useReducedMotion } from "../hooks/useReducedMotion";
+import { useDeviceCapability } from "../hooks/useDeviceCapability";
+import SceneFallback from "./3d/SceneFallback";
 import profileImage from "../assets/my_image.png";
 
-function Hero() {
+const HeroScene = lazy(() => import("./3d/HeroScene"));
+
+function Hero({ theme }) {
+  const prefersReducedMotion = useReducedMotion();
+  const capability = useDeviceCapability(prefersReducedMotion);
+  const [accentColor, setAccentColor] = useState("#38bdf8");
+
+  useEffect(() => {
+    const computed = getComputedStyle(document.documentElement)
+      .getPropertyValue("--accent")
+      .trim();
+
+    if (computed) setAccentColor(computed);
+  }, [theme]);
+
   return (
     <section className="hero" id="home">
-        <div className="left-hero">
-            <h1>
-            Hi, I'm <span>Rajesh Kumar</span>
-            </h1>
-            
-            <h2>Full Stack Developer</h2>
-           
-            <p>
-            I build responsive and modern web applications using React.js, Node.js
-            and MariaDB..
-            </p>
-            <br />
-            <div className="hero-buttons">
-            <a href="#projects" className="hero-btn">
-                View Projects
-            </a>
+      <div className="hero-left">
+        <img src={profileImage} alt="Rajesh Kumar" className="hero-avatar" />
 
-            <a
-                href="/resume.pdf"
-                target="_blank"
-                rel="noreferrer"
-                className="hero-btn view-btn"
-            >
-                View Resume
-            </a>
+        <h1>
+          Rajesh Kumar
+          <span className="hero-role">Full-Stack Web Developer</span>
+        </h1>
 
-            <a href="/resume.pdf" download className="hero-btn resume-btn">
-                Download Resume
-            </a>
+        <p>
+          I build custom web applications that solve real business
+          problems — from billing systems and management dashboards to
+          staff workflow tools, backed by React, Node.js and Express.
+        </p>
 
-            <a href="#contact" className="hero-btn contact-btn">
-                Contact Me
-            </a>
-            </div>
+        <div className="hero-buttons">
+          <a href="#projects" className="hero-btn">
+            View My Work
+          </a>
+
+          <a href="#contact" className="hero-btn contact-btn">
+            Contact Me
+          </a>
+
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noreferrer"
+            className="hero-btn view-btn"
+          >
+            View Resume
+          </a>
+
+          <a href="/resume.pdf" download className="hero-btn resume-btn">
+            Download Resume
+          </a>
         </div>
+      </div>
+
       <div className="hero-right">
-        <img
-          src={profileImage}
-          alt="Profile"
-        />
+        {capability === "off" ? (
+          <SceneFallback />
+        ) : (
+          <Suspense fallback={<SceneFallback />}>
+            <div className="hero-canvas">
+              <HeroScene accentColor={accentColor} capability={capability} />
+            </div>
+          </Suspense>
+        )}
       </div>
     </section>
   );

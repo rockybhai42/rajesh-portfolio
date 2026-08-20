@@ -85,30 +85,42 @@
   }
 }
 
+/* AVATAR */
+
+.hero-avatar {
+  width: 72px;
+  height: 72px;
+
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+
+  margin-bottom: 24px;
+}
+
 /* TEXT */
 
 .hero-left h1 {
-  font-size: 60px;
+  font-size: 56px;
   margin-bottom: 20px;
-  line-height: 1.2;
+  line-height: 1.15;
 }
 
-.hero-left span {
+.hero-role {
+  display: block;
+  margin-top: 6px;
+
+  font-size: 30px;
+  font-weight: 600;
   color: var(--accent);
 }
 
-.hero-left h2 {
-  font-size: 35px;
-  margin-bottom: 20px;
-  color: var(--text-secondary);
-}
-
 .hero-left p {
-  font-size: 20px;
+  font-size: 19px;
   line-height: 1.8;
   margin-bottom: 35px;
 
-  max-width: 600px;
+  max-width: 560px;
 
   color: var(--text-secondary);
 }
@@ -140,10 +152,16 @@
 }
 
 /* HOVER */
-.hero-btn:hover {
+.hero-btn:hover,
+.hero-btn:focus-visible {
   transform: translateY(-5px) scale(1.05);
   box-shadow: 0 0 20px var(--shadow);
   background-color: var(--accent-hover);
+}
+
+.hero-btn:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 3px;
 }
 
 /* VIEW RESUME */
@@ -177,45 +195,52 @@
 }
 
 /* =========================
-   RIGHT IMAGE
+   RIGHT — 3D SYSTEM / FALLBACK
 ========================= */
-.hero-right img {
-  width: 400px;
-  height: 400px;
 
-  object-fit: contain;
+.hero-right {
+  width: 45%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.hero-right::before {
+  content: "";
+  position: absolute;
+
+  width: 460px;
+  height: 460px;
+  max-width: 90%;
+  max-height: 90%;
 
   border-radius: 50%;
+  background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+  opacity: 0.15;
+  filter: blur(20px);
 
-  border: 6px solid var(--accent);
-
-  background: white;
-}
-.hero-right img:hover {
-  transform: scale(1.05);
-
-  box-shadow:
-    0 0 30px var(--accent),
-    0 0 60px var(--accent);
+  pointer-events: none;
 }
 
-@keyframes floatImage {
-  0% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-15px);
-  }
-
-  100% {
-    transform: translateY(0);
-  }
+.hero-canvas {
+  width: 380px;
+  height: 380px;
+  max-width: 100%;
+  position: relative;
 }
 
 /* =========================
    RESPONSIVE
 ========================= */
+
+@media (max-width: 1024px) {
+  .hero-canvas {
+    width: 320px;
+    height: 320px;
+  }
+}
 
 @media (max-width: 768px) {
   .hero {
@@ -231,16 +256,21 @@
     width: 100%;
   }
 
-  .hero-left h1 {
-    font-size: 42px;
+  .hero-avatar {
+    margin-left: auto;
+    margin-right: auto;
   }
 
-  .hero-left h2 {
-    font-size: 26px;
+  .hero-left h1 {
+    font-size: 38px;
+  }
+
+  .hero-role {
+    font-size: 22px;
   }
 
   .hero-left p {
-    font-size: 18px;
+    font-size: 17px;
     max-width: 100%;
   }
 
@@ -252,8 +282,12 @@
     width: 100%;
   }
 
-  .hero-right img {
-  width: 230px;
-  height: 230px;
-}
+  .hero-right {
+    width: 100%;
+  }
+
+  .hero-canvas {
+    width: 260px;
+    height: 260px;
+  }
 }

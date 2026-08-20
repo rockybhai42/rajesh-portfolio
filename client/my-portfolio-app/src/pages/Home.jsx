@@ -18,7 +18,7 @@ function Home (){
     <>
     <div className={theme}>
         <Navbar theme = {theme} setTheme = {setTheme} />
-        <Hero />
+        <Hero theme={theme} />
         <About />
         <Skills /> 
         <Projects /> 
