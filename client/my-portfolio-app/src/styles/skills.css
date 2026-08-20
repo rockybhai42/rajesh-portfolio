@@ -9,6 +9,7 @@
   color: var(--text-primary);
 
   padding: 100px 80px;
+  overflow-x: hidden;
 
   animation: fadeSkills 1s ease;
 
@@ -50,6 +51,7 @@
 
 .skills-architecture {
   max-width: 900px;
+  width: 100%;
   margin: 0 auto;
 
   display: flex;
@@ -58,6 +60,7 @@
 }
 
 .skills-layer {
+  min-width: 0;
   padding: 24px 28px;
 
   background-color: var(--card-bg);

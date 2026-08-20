@@ -37,24 +37,23 @@ function Hero({ theme }) {
         </p>
 
         <div className="hero-buttons">
-          <a href="#projects" className="hero-btn">
+          <a href="#projects" className="hero-btn hero-btn-primary">
             View My Work
           </a>
 
-          <a href="#contact" className="hero-btn contact-btn">
+          <a href="#contact" className="hero-btn hero-btn-secondary">
             Contact Me
           </a>
+        </div>
 
-          <a
-            href="/resume.pdf"
-            target="_blank"
-            rel="noreferrer"
-            className="hero-btn view-btn"
-          >
+        <div className="hero-resume-links">
+          <a href="/resume.pdf" target="_blank" rel="noreferrer">
             View Resume
           </a>
-
-          <a href="/resume.pdf" download className="hero-btn resume-btn">
+          <span className="hero-resume-divider" aria-hidden="true">
+            ·
+          </span>
+          <a href="/resume.pdf" download>
             Download Resume
           </a>
         </div>
