@@ -3,102 +3,137 @@
 ========================= */
 
 .skills {
-  min-height: 60vh;
+  min-height: 100vh;
 
   background-color: var(--bg-primary);
   color: var(--text-primary);
 
   padding: 100px 80px;
 
+  animation: fadeSkills 1s ease;
+
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* =========================
-   TITLE
-========================= */
+@keyframes fadeSkills {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 .skills h2 {
   font-size: 45px;
-  margin-bottom: 60px;
+  margin-bottom: 16px;
 
   color: var(--accent);
 
   text-align: center;
 }
 
-/* =========================
-   SKILLS CONTAINER
-========================= */
+.skills-subtitle {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 17px;
 
-.skills-container {
-  display: flex;
-  flex-wrap: wrap;
-
-  justify-content: center;
-  align-items: center;
-
-  gap: 25px;
-
-  max-width: 1000px;
-  margin: 0 auto;
+  margin-bottom: 60px;
 }
 
 /* =========================
-   SKILL CARD
+   ARCHITECTURE LAYERS
 ========================= */
 
-.skill-card {
-  width: 140px;
-  height: 140px;
-
-  background-color: var(--card-bg);
-  border: 1px solid var(--border-color);
-
-  border-radius: 12px;
-
-  padding: 20px 15px;
+.skills-architecture {
+  max-width: 900px;
+  margin: 0 auto;
 
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  gap: 12px;
-
-  cursor: default;
-
-  transition: all 0.3s ease;
+  gap: 22px;
 }
 
-/* =========================
-   ICON
-========================= */
+.skills-layer {
+  padding: 24px 28px;
 
-.skill-icon {
-  font-size: 35px;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.skills-layer-active {
+  border-color: var(--accent);
+  box-shadow: 0 8px 24px var(--shadow);
+  transform: translateY(-2px);
+}
+
+.skills-layer-label {
+  display: block;
+
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+
+  transition: color 0.3s ease;
+}
+
+.skills-layer-active .skills-layer-label {
   color: var(--accent);
 }
 
-/* =========================
-   TEXT
-========================= */
-
-.skill-card p {
-  font-size: 16px;
-  color: var(--text-secondary);
+.skills-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
-/* =========================
-   HOVER EFFECT
-========================= */
+.skill-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 
-.skill-card:hover {
-  transform: translateY(-6px);
-
-  border-color: var(--accent);
-  box-shadow: 0 10px 25px var(--shadow);
+  padding: 10px 16px;
+  border-radius: 999px;
 
   background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+
+  transition: all 0.25s ease;
+}
+
+.skill-chip-icon {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  color: var(--accent);
+}
+
+.skill-chip:hover,
+.skill-chip:focus-visible {
+  border-color: var(--accent);
+  background-color: var(--bg-tertiary);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px var(--shadow);
+}
+
+.skill-chip:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 /* =========================
@@ -114,16 +149,12 @@
     font-size: 35px;
   }
 
-  .skill-card {
-    width: 120px;
-    padding: 18px 12px;
+  .skills-layer {
+    padding: 20px;
   }
 
-  .skill-icon {
-    font-size: 30px;
-  }
-
-  .skill-card p {
+  .skill-chip {
     font-size: 14px;
+    padding: 8px 14px;
   }
 }
