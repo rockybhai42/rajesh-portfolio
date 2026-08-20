@@ -64,7 +64,7 @@ function Skills() {
 
     <section className="skills" id="skills">
 
-      <h1>Skills</h1>
+      <h2>Skills</h2>
 
       <div className="skills-container">
 

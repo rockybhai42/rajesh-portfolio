@@ -19,7 +19,7 @@
    TITLE
 ========================= */
 
-.projects h1 {
+.projects h2 {
   font-size: 45px;
   margin-bottom: 60px;
 
@@ -233,7 +233,7 @@
     padding: 60px 20px;
   }
 
-  .projects h1 {
+  .projects h2 {
     font-size: 35px;
   }
 

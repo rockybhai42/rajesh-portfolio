@@ -4,7 +4,7 @@ import "../styles/about.css"
 function About () {
     return(
         <section className="about" id="about">
-            <h1>About Me</h1>
+            <h2>About Me</h2>
             <p>
           I am a beginner full stack web developer passionate
         about building modern web applications using

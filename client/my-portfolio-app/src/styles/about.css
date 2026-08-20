@@ -23,7 +23,7 @@
    HEADING
 ========================= */
 
-.about h1 {
+.about h2 {
   font-size: 45px;
   margin-bottom: 30px;
 
@@ -69,7 +69,7 @@
     text-align: center;
   }
 
-  .about h1 {
+  .about h2 {
     font-size: 35px;
   }
 

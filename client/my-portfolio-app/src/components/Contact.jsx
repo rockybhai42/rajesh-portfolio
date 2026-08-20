@@ -80,7 +80,7 @@ function Contact (){
 
     return (
         <section className="contact" id="contact">
-            <h1>Contact Me</h1>
+            <h2>Contact Me</h2>
             <div className="contact-container">
                 <form className="contact-form" onSubmit={handleSubmit}>
                     <input  type="text" placeholder="Your name" maxLength="50" value={name} onChange={(e)=>setName(e.target.value) }  required />
