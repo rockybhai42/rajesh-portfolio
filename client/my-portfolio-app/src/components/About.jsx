@@ -1,9 +1,16 @@
 import "../styles/about.css"
+import { useInView } from "../hooks/useInView"
 
 
 function About () {
+    const [ref, isInView] = useInView();
+
     return(
-        <section className="about" id="about">
+        <section
+          ref={ref}
+          className={"about reveal" + (isInView ? " reveal-visible" : "")}
+          id="about"
+        >
             <h2>About Me</h2>
             <p>
           I'm a full-stack web developer focused on building practical,

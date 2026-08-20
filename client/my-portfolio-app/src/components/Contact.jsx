@@ -2,8 +2,10 @@ import "../styles/contact.css"
 import {useState} from "react"
 import { toast } from "react-toastify";
 import { API_BASE_URL } from "../config/api";
+import { useInView } from "../hooks/useInView";
 
 function Contact (){
+    const [ref, isInView] = useInView();
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
@@ -79,7 +81,11 @@ function Contact (){
 
 
     return (
-        <section className="contact" id="contact">
+        <section
+          ref={ref}
+          className={"contact reveal" + (isInView ? " reveal-visible" : "")}
+          id="contact"
+        >
             <h2>Contact Me</h2>
             <div className="contact-container">
                 <form className="contact-form" onSubmit={handleSubmit}>

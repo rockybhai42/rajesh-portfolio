@@ -1,7 +1,9 @@
 import "../styles/projects.css"
+import { useInView } from "../hooks/useInView"
 
 
 function Projects (){
+    const [ref, isInView] = useInView();
     const projects = [
 
     {
@@ -83,7 +85,11 @@ function Projects (){
 
 
     return(
-       <section className="projects" id="projects">
+       <section
+         ref={ref}
+         className={"projects reveal" + (isInView ? " reveal-visible" : "")}
+         id="projects"
+       >
         <h2>Projects</h2>
         <p className="projects-subtitle">
           Full-stack business applications, not tutorials or clones.

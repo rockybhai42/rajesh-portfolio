@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../styles/skills.css";
+import { useInView } from "../hooks/useInView";
 
 import {
   FaHtml5,
@@ -56,9 +57,14 @@ const layers = [
 
 function Skills() {
   const [activeLayer, setActiveLayer] = useState(null);
+  const [ref, isInView] = useInView();
 
   return (
-    <section className="skills" id="skills">
+    <section
+      ref={ref}
+      className={"skills reveal" + (isInView ? " reveal-visible" : "")}
+      id="skills"
+    >
       <h2>Skills</h2>
       <p className="skills-subtitle">
         The technology layers behind the applications I build.
