@@ -15,9 +15,15 @@ function Navbar({theme, setTheme}) {
         <nav className="navbar">
             <div className="logo">Rajesh Kumar</div>
 
-            <div className="menu-icon" onClick={()=>setMobileMenuopen(!isMobileMenuOpen)}>
+            <button
+              type="button"
+              className="menu-icon"
+              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isMobileMenuOpen}
+              onClick={()=>setMobileMenuopen(!isMobileMenuOpen)}
+            >
                 {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
-            </div>
+            </button>
              <ul className={isMobileMenuOpen ? "nav-links active" : "nav-links"}>
                 <li><a href="#home" onClick={closeMenu}>Home</a></li>
                 <li><a href="#about" onClick={closeMenu}>About</a></li>

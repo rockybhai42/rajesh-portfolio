@@ -89,9 +89,10 @@ function Contact (){
             <h2>Contact Me</h2>
             <div className="contact-container">
                 <form className="contact-form" onSubmit={handleSubmit}>
-                    <input  type="text" placeholder="Your name" maxLength="50" value={name} onChange={(e)=>setName(e.target.value) }  required />
-                    <input type="email" placeholder="Your email" maxLength="100" value={email} onChange={(e)=> setEmail(e.target.value)}  required />
+                    <input  type="text" aria-label="Your name" placeholder="Your name" maxLength="50" value={name} onChange={(e)=>setName(e.target.value) }  required />
+                    <input type="email" aria-label="Your email" placeholder="Your email" maxLength="100" value={email} onChange={(e)=> setEmail(e.target.value)}  required />
                     <textarea
+                    aria-label="Your message"
                     placeholder="Your message"
                     rows="6"
                     maxLength="500"
