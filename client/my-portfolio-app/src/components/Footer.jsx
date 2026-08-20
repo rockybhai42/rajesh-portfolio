@@ -2,7 +2,6 @@ import "../styles/footer.css"
 import { Link } from "react-router-dom";
 import {
   FaGithub,
-  FaLinkedin,
   FaEnvelope
 } from "react-icons/fa";
 
@@ -15,12 +14,6 @@ function Footer (){
          <a href="https://github.com/rockybhai42/" target="_blank">
              <FaGithub />
           GitHub
-        </a>
-
-        <a href="https://github.com/rockybhai42/" target="_blank">
-        
-            <FaLinkedin />
-          LinkedIn
         </a>
 
         <a href="mailto:rajeshskkanagaraj2001@gmail.com">

@@ -13,6 +13,11 @@ function Projects (){
 
       icon: "🏥",
 
+      image: "/projects/clinic-billing-dashboard.png",
+
+      imageAlt:
+        "Clinic Billing System dashboard showing today's revenue, generated bills, and payment status counts",
+
       description:
         "Role-based billing and administration system for small clinics — patient billing with server-computed totals, medicine/injection/fluid inventory, partial payments, and admin-configurable settings, with full audit logging.",
 
@@ -31,6 +36,11 @@ function Projects (){
       category: "Digital Signage · Media Management",
 
       icon: "🍽️",
+
+      image: "/projects/todays-special-dashboard.png",
+
+      imageAlt:
+        "Today's Special manager dashboard listing published specials with price, duration, and status",
 
       description:
         "Full-stack restaurant operations app: a manager dashboard for publishing daily specials with image/video uploads, paired with a live customer-facing TV display screen.",
@@ -53,6 +63,10 @@ function Projects (){
       category: "Workflow Management",
 
       icon: "✅",
+
+      image: "/projects/preppilot-dashboard.png",
+
+      imageAlt: "PrepPilot manager dashboard with navigation for checklists and notifications",
 
       description:
         "Manager dashboard that turns a business's shift checklist workflow into a web app — shift-based task assignment, completion tracking, and staff notifications.",
@@ -100,7 +114,11 @@ function Projects (){
                 <div className="project-card" key={index}>
                     <div className="project-image">
                         {project.image ? (
-                            <img src={project.image} alt={project.title} />
+                            <img
+                              src={project.image}
+                              alt={project.imageAlt || project.title}
+                              loading="lazy"
+                            />
                         ) : (
                             <div className="project-image-placeholder">
                                 <span>{project.icon || "💻"}</span>
